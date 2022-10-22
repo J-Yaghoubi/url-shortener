@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %} Url shortener {% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div  class="align-items-center justify-content-center vh-100 bg-info d-flex">
+        <center>
+        <form action="" method="post">
+            <div style="width: 25%;">
+                <img class="w-100" src="../static/chain.png" alt="">
+            </div>
+            <h1>URL Shortener</h1>
+            <input id="original" class="border border-4 rounded-pill" type="url" id="url" name="url" placeholder="https://example.com" pattern="https://.*" maxlength="100" required>
+            <button id="convert"  type="submit" class="btn btn-primary rounded-pill">Convert</button>  
+        </form>
+        <p id="result" class="mt-4 shadow"></p>
+        </center>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('form').on('submit', function(event) {
+            $.ajax({
+                data : { original : $('#original').val() },
+                type : 'POST',
+                url : '/'
+            }).done(function(data) {
+                document.getElementById('result').innerHTML = data
+            });
+            // Prevent the entire submit event to do default action
+            event.preventDefault();
+        });
+    });
+</script>
+
+{% endblock %}
+
